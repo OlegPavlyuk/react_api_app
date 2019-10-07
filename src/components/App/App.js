@@ -15,7 +15,6 @@ export default class App extends Component {
 
         <div className="row mb2">
           <div className="col-md-6">
-            console.log(PersonDetails);
             <ItemList />
           </div>
           <div className="col-md-6">

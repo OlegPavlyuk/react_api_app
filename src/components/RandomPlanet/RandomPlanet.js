@@ -4,27 +4,56 @@ import SwapiService from '../../services/swapi-service';
 import './RandomPlanet.css';
 
 export default class RandomPlanet extends Component {
+  swapiService = new SwapiService();
+
+  state = {
+    planet: {}
+  };
+
+  constructor() {
+    super();
+    this.updatePlanet();
+  }
+
+  onPlanetLoaded = planet => {
+    this.setState({ planet });
+  };
+
+  updatePlanet() {
+    const id = Math.floor(Math.random() * 25) + 2;
+    this.swapiService.getPlanet(id).then(this.onPlanetLoaded);
+  }
+
   render() {
+    const {
+      id,
+      name,
+      population,
+      rotationPeriod,
+      diameter
+    } = this.state;
+
     return (
       <article className="random-planet jumbotron rounded">
         <img
           className="planet-image"
-          src={`https://starwars-visualguide.com/assets/img/planets/3.jpg`}
+          src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+          alt="Random Planet"
         />
         <section>
-          <h4>Jupiter</h4>
+          <h4>{name}</h4>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
               <span className="term">Population</span>
-              <span>10000000</span>
+              <span>{population}</span>
             </li>
             <li className="list-group-item">
               <span className="term">Rotation Period</span>
-              <span>320</span>
+              <span>{rotationPeriod}</span>
             </li>
             <li className="list-group-item">
               <span className="term">Diameter</span>
-              <span>45000</span>
+              <span>{diameter}</span>
             </li>
           </ul>
         </section>

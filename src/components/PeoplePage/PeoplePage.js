@@ -30,6 +30,7 @@ export default class PeoplePage extends Component {
           <ItemList
             onItemSelected={this.onPersonSelected}
             getData={this.props.getData}
+            renderItem={({ name, gender }) => `${name}, ${gender}`}
           />
         </div>
         <div className="col-md-6">
